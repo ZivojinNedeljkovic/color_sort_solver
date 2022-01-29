@@ -1,0 +1,38 @@
+$border-width: 2px;
+
+.color_field {
+  width: min(10vw, 60px);
+  height: min(8vw, 40px);
+  border-left: $border-width solid #1c6ea4;
+  border-right: $border-width solid #1c6ea4;
+  // border-top: $border-width / 2 solid #1c6ea4;
+  // transition: background-color 50ms linear;
+}
+
+.top_field {
+  border-top: $border-width solid #1c6ea4;
+}
+.bottom_field {
+  border-bottom: $border-width solid #1c6ea4;
+  border-radius: 0px 0px 40px 40px;
+}
+
+.editable {
+  border-top: $border-width / 2 solid #1c6ea4;
+}
+
+.editable:hover {
+  border: $border-width * 1.8 solid rgb(255, 230, 0);
+}
+
+.invalid {
+  // border: $border-width  dashed rgb(250, 250, 250);
+  outline-width: $border-width * 0.8;
+  outline-color: rgb(230, 16, 16);
+  outline-style: dashed;
+}
+
+.transition {
+  // transition: background-color 500ms;
+  border-top: none;
+}
