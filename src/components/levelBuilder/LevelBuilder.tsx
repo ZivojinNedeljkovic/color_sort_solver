@@ -1,8 +1,9 @@
 import { Button, Grid } from '@mui/material'
+import useAppDispatch from '../../hooks/useAppDispatch'
+import useAppSelector from '../../hooks/useAppSelector'
 import { Bottle } from '../../models/bottle'
 import { removeFalsyValues } from '../../models/helpers'
-import { useAppDispatch, useAppSelector } from '../../store/hooks'
-import { setFiled, validateBottles } from '../../store/levelBuilderSlice'
+import { setFiled } from '../../store/levelBuilderSlice'
 import Bottles from '../bottles/Bottles'
 import LevelBuilderSnackbar from './LevelBuilderSnackbar'
 import Toolbar from './toolbar/Toolbar'
@@ -12,7 +13,7 @@ type LevelBuilderProps = {
 }
 
 function LevelBuilder({ onSubmit }: LevelBuilderProps) {
-  const { bottles, maxNumberOfBottlesPerRow, submitError } = useAppSelector(
+  const { bottles, maxNumberOfBottlesPerRow } = useAppSelector(
     store => store.levelBuilder
   )
 
@@ -27,7 +28,7 @@ function LevelBuilder({ onSubmit }: LevelBuilderProps) {
     )
 
   const onSubmitHandler = () => {
-    dispatch(validateBottles())
+    // dispatch(validateBottles())
 
     // if (!submitError.message) return
 
@@ -45,7 +46,7 @@ function LevelBuilder({ onSubmit }: LevelBuilderProps) {
             bottles={bottles}
             maxBottlesPerRow={maxNumberOfBottlesPerRow}
             onClickField={onClickFieldHandler}
-            invalidFields={submitError.invalidFields}
+            // invalidFields={submitError.invalidFields}
           />
         </Grid>
         <Grid item md={12}></Grid>

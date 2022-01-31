@@ -1,6 +1,5 @@
 import { Button, Grid } from '@mui/material'
 import { useEffect, useState } from 'react'
-import useSolutionSearch from '../hooks/useSolutionSearch'
 import { Bottle } from '../models/bottle'
 import { Step } from '../models/step'
 import Bottles from './bottles/Bottles'

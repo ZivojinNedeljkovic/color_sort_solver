@@ -1,11 +1,9 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { Bottle, getEmptyBottle, getEmptyBottles } from '../models/bottle'
 import {
-  getColorsThatAppearLessThenFourTimes,
   getNumOfFieldsColoredWith,
-  hasTruthyValueAfterIndex,
   isPositiveInteger,
-} from './levelBuilderSliceHelpers'
+} from './levelBuilderHelpers'
 
 type LevelBuilderState = {
   bottles: Bottle[]
@@ -14,16 +12,7 @@ type LevelBuilderState = {
   setMaxNumberOfBottlesPerRowError: string
   setNumberOfBottlesError: string
   setFiledError: string
-  submitError: {
-    message: string
-    invalidFields: { [bottleId: number]: number[] }
-  }
 }
-
-// const initSubmitError = {
-//   message: '',
-//   invalidFields: {},
-// }
 
 const initialState: LevelBuilderState = {
   bottles: getEmptyBottles(10),
@@ -31,13 +20,9 @@ const initialState: LevelBuilderState = {
   setMaxNumberOfBottlesPerRowError: '',
   setNumberOfBottlesError: '',
   setFiledError: '',
-  submitError: {
-    message: '',
-    invalidFields: {},
-  },
 }
 
-export const levelBuilderSlice = createSlice({
+const levelBuilderSlice = createSlice({
   name: 'levelBuilder',
   initialState,
   reducers: {
@@ -122,40 +107,6 @@ export const levelBuilderSlice = createSlice({
       state.bottles[bottleIndex][fieldIndex] =
         selectedColor === filedColor ? undefined : selectedColor
     },
-
-    validateBottles(state) {
-      const { bottles, submitError } = state
-      let { invalidFields } = submitError
-
-      for (const member in invalidFields) delete invalidFields[member]
-      submitError.message = ''
-
-      const addToInvalidFields = (bottleIndex: number, fieldIndex: number) => {
-        if (invalidFields[bottleIndex])
-          invalidFields[bottleIndex].push(fieldIndex)
-        else invalidFields[bottleIndex] = [fieldIndex]
-      }
-
-      const invalidColors = getColorsThatAppearLessThenFourTimes(bottles)
-      let hasInvalidEmptyField = false
-
-      bottles.forEach((bottle, bottleIndex) => {
-        bottle.forEach((color, fieldIndex) => {
-          if (color && invalidColors.includes(color))
-            addToInvalidFields(bottleIndex, fieldIndex)
-          else if (!color && hasTruthyValueAfterIndex(bottle, fieldIndex)) {
-            hasInvalidEmptyField = true
-            addToInvalidFields(bottleIndex, fieldIndex)
-          }
-        })
-      })
-
-      if (invalidColors.length)
-        submitError.message += 'Color must appear in four fields. '
-
-      if (hasInvalidEmptyField)
-        submitError.message += 'Empty fields must be on top. '
-    },
   },
 })
 
@@ -164,7 +115,6 @@ export const {
   setMaxNumberOfBottlesPerRow,
   setSelectedColor,
   setFiled,
-  validateBottles,
 } = levelBuilderSlice.actions
 
 export default levelBuilderSlice.reducer

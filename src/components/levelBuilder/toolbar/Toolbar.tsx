@@ -1,4 +1,5 @@
-import { useAppDispatch, useAppSelector } from '../../../store/hooks'
+import useAppSelector from '../../../hooks/useAppSelector'
+import useAppDispatch from '../../../hooks/useAppDispatch'
 import {
   setMaxNumberOfBottlesPerRow,
   setNumberOfBottles,
