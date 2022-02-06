@@ -1,6 +1,6 @@
-import { Bottle } from '../models/bottle'
-import { removeFalsyValues } from '../models/helpers'
-import { InvalidFields } from './bottlesValidationSlice'
+import { Bottle } from '../../models/bottle'
+import { removeFalsyValues } from '../../models/helpers'
+import { InvalidFields } from '../bottlesValidationSlice'
 
 function getNumberOfTimesEachElementAppearsInArray<T>(array: T[]) {
   const occurrenceMap = new Map<T, number>()

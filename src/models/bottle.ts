@@ -9,4 +9,3 @@ export function getEmptyBottles(numberOfBottles: number) {
 
   return bottles
 }
-

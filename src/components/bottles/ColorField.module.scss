@@ -30,6 +30,7 @@ $border-width: 2px;
   outline-width: $border-width * 0.8;
   outline-color: rgb(230, 16, 16);
   outline-style: dashed;
+  z-index: 2;
 }
 
 .transition {

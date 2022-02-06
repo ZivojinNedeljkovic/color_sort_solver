@@ -1,26 +1,30 @@
-import { Bottle } from '../models/bottle'
+import { useEffect, useState } from 'react'
+import SolutionSearch from '../models/solutionSearch'
+import solutionSearch from '../models/solutionSearch'
 import { Step } from '../models/step'
-import useWorker from './useWorker'
+import { commitSolution } from '../store/solutionSlice'
 
-type UseSolutionSearchProps = {
-  level: Bottle[]
-  onFindSolution: (response: any) => void
-}
+import useAppDispatch from './useAppDispatch'
+import useAppSelector from './useAppSelector'
 
-function useSolutionSearch({ level, onFindSolution }: UseSolutionSearchProps) {
-  const onMessageHandler = (stringifiedSolution: string) => {
-    onFindSolution(JSON.parse(stringifiedSolution))
-    // console.log(stringifiedSolution)
-  }
+function useSolutionSearch() {
+  const { bottles } = useAppSelector(store => store.levelBuilder)
+  const { canAcceptBetterSolution } = useAppSelector(store => store.solution)
 
-  const { postMessage, terminate } = useWorker({
-    scriptURL: 'worker.js',
-    onmessage: onMessageHandler,
-  })
+  const dispatch = useAppDispatch()
 
-  postMessage(JSON.stringify(level))
+  useEffect(() => {
+    if (!canAcceptBetterSolution) return
 
-  return { terminateSearch: terminate }
+    const solutionSearch = new SolutionSearch()
+
+    solutionSearch.startSearch(bottles, solution => {
+      console.log(solution)
+      dispatch(commitSolution(solution))
+    })
+
+    return () => solutionSearch.terminateSearch()
+  }, [bottles, canAcceptBetterSolution, dispatch])
 }
 
 export default useSolutionSearch

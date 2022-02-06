@@ -1,0 +1,44 @@
+$scaleAndTranslateContainer: scale(2) translate(0, -25%);
+$scaleAndTranslateContent: scale(0.5) translate(0, 50%);
+
+.angled-container {
+  transform: rotate(2deg) $scaleAndTranslateContainer;
+  margin-bottom: 50px;
+}
+
+.angled-container__content {
+  transform: rotate(-2deg) $scaleAndTranslateContent;
+}
+
+// @media (min-width: 600px) {
+//   .angled-container {
+//     transform: rotate(1.5deg) $scaleAndTranslateContainer;
+//   }
+
+//   .angled-container__content {
+//     transform: rotate(-1.5deg) $scaleAndTranslateContent;
+//   }
+// }
+
+@media (min-width: 900px) {
+  .angled-container {
+    transform: rotate(1.8deg) $scaleAndTranslateContainer;
+  }
+
+  .angled-container__content {
+    transform: rotate(-1.8deg) $scaleAndTranslateContent;
+  }
+}
+
+@media (min-width: 1200px) {
+  .angled-container {
+    transform: rotate(1.2deg) $scaleAndTranslateContainer;
+  }
+
+  .angled-container__content {
+    transform: rotate(-1.2deg) $scaleAndTranslateContent;
+  }
+}
+
+// @media (min-width: 1536px) {
+// }

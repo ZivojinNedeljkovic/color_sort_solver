@@ -1,4 +1,4 @@
-import { Bottle } from '../models/bottle'
+import { Bottle } from '../../models/bottle'
 
 
 export const isPositiveInteger = (number: number) =>

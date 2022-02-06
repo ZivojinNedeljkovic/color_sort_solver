@@ -1,8 +1,10 @@
-import { Button, Grid } from '@mui/material'
+import { Button, Grid, Typography } from '@mui/material'
+import { useEffect } from 'react'
 import useAppDispatch from '../../hooks/useAppDispatch'
 import useAppSelector from '../../hooks/useAppSelector'
 import { Bottle } from '../../models/bottle'
 import { removeFalsyValues } from '../../models/helpers'
+import { validateBottles } from '../../store/bottlesValidationSlice'
 import { setFiled } from '../../store/levelBuilderSlice'
 import Bottles from '../bottles/Bottles'
 import LevelBuilderSnackbar from './LevelBuilderSnackbar'
@@ -17,7 +19,17 @@ function LevelBuilder({ onSubmit }: LevelBuilderProps) {
     store => store.levelBuilder
   )
 
+  const { bottlesAreValid, invalidFields } = useAppSelector(
+    store => store.bottlesValidation
+  )
+
   const dispatch = useAppDispatch()
+
+  useEffect(() => {
+    if (bottlesAreValid)
+      onSubmit(bottles.map(bottle => removeFalsyValues(bottle)))
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [bottlesAreValid])
 
   const onClickFieldHandler = (bottleId: number, fieldId: number) =>
     dispatch(
@@ -27,12 +39,8 @@ function LevelBuilder({ onSubmit }: LevelBuilderProps) {
       })
     )
 
-  const onSubmitHandler = () => {
-    // dispatch(validateBottles())
-
-    // if (!submitError.message) return
-
-    onSubmit(bottles.map(bottle => removeFalsyValues(bottle)))
+  const onFindSolutionHandler = () => {
+    dispatch(validateBottles(bottles))
   }
 
   return (
@@ -46,12 +54,12 @@ function LevelBuilder({ onSubmit }: LevelBuilderProps) {
             bottles={bottles}
             maxBottlesPerRow={maxNumberOfBottlesPerRow}
             onClickField={onClickFieldHandler}
-            // invalidFields={submitError.invalidFields}
+            invalidFields={invalidFields}
           />
         </Grid>
         <Grid item md={12}></Grid>
         <Grid item>
-          <Button variant="contained" onClick={onSubmitHandler}>
+          <Button variant="contained" onClick={onFindSolutionHandler}>
             find solution
           </Button>
         </Grid>

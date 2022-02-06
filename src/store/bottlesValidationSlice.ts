@@ -6,19 +6,19 @@ import {
   forEachFieldInBottles,
   getInvalidColors,
   hasTruthyValueAfterIndex,
-} from './bottlesValidationHelpers'
+} from './helpers/bottlesValidationHelpers'
 
 export type InvalidFields = { [bottleId: number]: number[] }
 
 type BottlesValidationState = {
   bottlesAreValid: boolean
-  message: string
+  validationReport: string
   invalidFields: InvalidFields
 }
 
 const getInitialState = (): BottlesValidationState => ({
   bottlesAreValid: false,
-  message: '',
+  validationReport: '',
   invalidFields: {},
 })
 
@@ -52,12 +52,15 @@ const bottlesValidationSlice = createSlice({
       }, bottles)
 
       if (invalidColors.length)
-        state.message += 'Color must appear in four fields. '
+        state.validationReport += 'Color must appear in four fields. '
 
-      if (hasInvalidEmptyField) state.message += 'Empty fields must be on top. '
+      if (hasInvalidEmptyField)
+        state.validationReport += 'Empty fields must be on top. '
 
       if (!hasEmptyField)
-        state.message += 'You must leave at least one empty bottle.'
+        state.validationReport += 'You must leave at least one empty bottle.'
+
+      state.bottlesAreValid = !state.validationReport
 
       return state
     },

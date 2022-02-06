@@ -1,0 +1,41 @@
+// $scaleAndTranslateContainer: scale(2) translate(0, -10px);
+// $scaleAndTranslateContent: scale(0.5) translate(0, 50%);
+
+.header {
+  //   transform: rotate(2deg) $scaleAndTranslateContainer;
+  margin-bottom: 70px;
+}
+
+// .header_content {
+//   transform: rotate(-2deg) $scaleAndTranslateContent;
+// }
+
+// @media (min-width: 600px) {
+//   .header {
+//     transform: rotate(1.5deg) $scaleAndTranslateContainer;
+//   }
+
+//   .header__content {
+//     transform: rotate(-1.5deg) $scaleAndTranslateContent;
+//   }
+// }
+
+// @media (min-width: 900px) {
+//   .header {
+//     transform: rotate(1.5deg) $scaleAndTranslateContainer;
+//   }
+
+//   .header_content {
+//     transform: rotate(-1.5deg) $scaleAndTranslateContent;
+//   }
+// }
+
+// @media (min-width: 1200px) {
+//   .header {
+//     transform: rotate(0.5deg) $scaleAndTranslateContainer;
+//   }
+
+//   .header_content {
+//     transform: rotate(-0.5deg) $scaleAndTranslateContent;
+//   }
+// }

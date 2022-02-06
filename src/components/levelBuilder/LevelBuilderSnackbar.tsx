@@ -4,6 +4,7 @@ import Snackbar from '@mui/material/Snackbar'
 
 function LevelBuilderSnackbar() {
   const { setFiledError } = useAppSelector(store => store.levelBuilder)
+  const { validationReport } = useAppSelector(store => store.bottlesValidation)
 
   let content
 
@@ -14,20 +15,16 @@ function LevelBuilderSnackbar() {
       </Alert>
     )
 
-  // if (submitError.message)
-  //   content = (
-  //     <Alert severity="error" variant="filled">
-  //       {submitError.message + setFiledError}
-  //     </Alert>
-  //   )
+  if (validationReport)
+    content = (
+      <Alert severity="error" variant="filled">
+        {validationReport + setFiledError}
+      </Alert>
+    )
 
   return (
     <Snackbar
-      open={
-        !!setFiledError
-        // || !!submitError.message
-      }
-      //   message={setFiledError}
+      open={!!(setFiledError || validationReport)}
       transitionDuration={{ enter: 500, exit: 500 }}
     >
       {content}

@@ -1,3 +1,1 @@
-import { Bottle } from './bottle'
-
-export type Step = Bottle[]
+export type Step = string[][]
