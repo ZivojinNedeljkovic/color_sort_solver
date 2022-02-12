@@ -6,10 +6,10 @@ import { clearValidationState } from '../../store/levelValidationSlice'
 import { clearSolutionState } from '../../store/solutionSlice'
 import Bottles from '../bottles/Bottles'
 
-function LBBottles() {
+function LevelBuilderBottles() {
   const {
     levelBuilder: { bottles, maxNumberOfBottlesPerRow },
-    levelValidation: { invalidFields },
+    levelValidation: { invalidColors },
   } = useAppSelector(store => store)
 
   const dispatch = useAppDispatch()
@@ -31,9 +31,9 @@ function LBBottles() {
       bottles={bottles}
       maxBottlesPerRow={maxNumberOfBottlesPerRow}
       onClickField={onClickFieldHandler}
-      invalidFields={invalidFields}
+      invalidColors={invalidColors}
     />
   )
 }
 
-export default LBBottles
+export default LevelBuilderBottles

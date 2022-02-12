@@ -1,4 +1,4 @@
-import colors from './colors'
+import colors from './palette'
 
 export type Bottle = (string | undefined)[]
 

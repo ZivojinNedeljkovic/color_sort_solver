@@ -1,20 +1,27 @@
 import { Grid } from '@mui/material'
 import { Bottle } from '../../models/bottle'
+import { getFieldsTextContentForBottles } from '../../models/fields'
 import BottleComponent from './Bottle'
+
+// function get
 
 type BottlesProps = {
   bottles: Bottle[]
   maxBottlesPerRow: number
+  invalidColors?: string[]
   onClickField?: (bottleId: number, fieldId: number) => void
-  invalidFields?: { [bottleId: number]: number[] }
 }
 
 function Bottles({
   bottles,
   maxBottlesPerRow,
+  invalidColors,
   onClickField,
-  invalidFields,
 }: BottlesProps) {
+  const bottlesFieldText = invalidColors
+    ? getFieldsTextContentForBottles(bottles, invalidColors)
+    : undefined
+
   return (
     <Grid container justifyContent="center" columnSpacing={2} rowSpacing={4}>
       {bottles.map((colors, i) => (
@@ -23,7 +30,7 @@ function Bottles({
             id={i}
             colors={colors}
             onClickField={onClickField}
-            invalidFields={invalidFields?.[i]}
+            fieldsTextContent={bottlesFieldText?.[i]}
           />
         </Grid>
       ))}

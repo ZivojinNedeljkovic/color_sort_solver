@@ -1,10 +1,15 @@
 $border-width: 2px;
 
 .color_field {
+  $hight: min(8vw, 40px);
   width: min(10vw, 60px);
-  height: min(8vw, 40px);
+  height: $hight;
   border-left: $border-width solid #1c6ea4;
   border-right: $border-width solid #1c6ea4;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: calc($hight * 0.5);
   // border-top: $border-width / 2 solid #1c6ea4;
   // transition: background-color 50ms linear;
 }

@@ -4,15 +4,15 @@ import { Stack } from '@mui/material'
 type BottleProps = {
   id: number
   colors: (string | undefined)[]
+  fieldsTextContent?: string[]
   onClickField?: (bottleId: number, fieldId: number) => void
-  invalidFields?: number[]
 }
 
 function Bottle({
   id: bottleId,
   colors,
+  fieldsTextContent,
   onClickField,
-  invalidFields,
 }: BottleProps) {
   const onClickFiledHandler = onClickField
     ? (fieldId: number) => onClickField(bottleId, fieldId)
@@ -26,8 +26,8 @@ function Bottle({
         id={i}
         color={colors[i]}
         onClick={onClickFiledHandler}
+        textContent={fieldsTextContent?.[i]}
         key={i}
-        invalid={invalidFields?.includes(i)}
       ></ColorField>
     )
   }

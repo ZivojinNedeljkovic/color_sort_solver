@@ -1,7 +1,7 @@
 import { Grid } from '@mui/material'
 import LBSnackbar from './LBSnackbar'
 import Toolbar from './toolbar/Toolbar'
-import LBBottles from './LBBottles'
+import LevelBuilderBottles from './LevelBuilderBottles'
 import LBButtonMenu from './lbButtonMenu/LBButtonMenu'
 
 function LevelBuilder() {
@@ -11,7 +11,7 @@ function LevelBuilder() {
         <Toolbar />
       </Grid>
       <Grid item xs={12} md={8} lg={5} xl={4}>
-        <LBBottles />
+        <LevelBuilderBottles />
       </Grid>
       <Grid item xs={12}></Grid>
       <Grid item>

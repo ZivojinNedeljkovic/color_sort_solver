@@ -1,24 +1,25 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 
 import { Bottle } from '../models/bottle'
+
 import {
-  addToInvalidFields,
-  forEachFieldInBottles,
-  getInvalidColors,
-  hasTruthyValueAfterIndex,
-} from './helpers/levelValidationHelpers'
+  getInvalidColorsOfFields,
+  isThereAnColoredField,
+  isThereAnEmptyField,
+} from '../models/fields'
 
 export type InvalidFields = { [bottleId: number]: number[] }
 
 type BottlesValidationState = {
-  isValidLevel?: boolean
+  isValidLevel: boolean
+  invalidColors: string[]
   validationReport: string
-  invalidFields: InvalidFields
 }
 
 const getInitialState = (): BottlesValidationState => ({
+  isValidLevel: false,
+  invalidColors: [],
   validationReport: '',
-  invalidFields: {},
 })
 
 const levelValidationSlice = createSlice({
@@ -26,42 +27,25 @@ const levelValidationSlice = createSlice({
   initialState: getInitialState(),
   reducers: {
     validateBottles(_, { payload: bottles }: PayloadAction<Bottle[]>) {
-      const state = getInitialState()
+      let validationReport = ''
+      const fields = bottles.flat()
 
-      const invalidColors = getInvalidColors(bottles)
+      const invalidColors = getInvalidColorsOfFields(fields)
 
-      let hasEmptyField = false
-      let hasInvalidEmptyField = false
+      invalidColors.length &&
+        (validationReport += 'Color must appear in four fields. ')
 
-      forEachFieldInBottles((fieldColor, bottleIndex, fieldIndex) => {
-        if (!fieldColor) hasEmptyField = true
+      !isThereAnColoredField(fields) &&
+        (validationReport += "You can't leave all bottles empty. ")
 
-        const bottle = bottles[bottleIndex]
+      !isThereAnEmptyField(fields) &&
+        (validationReport += 'You must leave at least one empty field.')
 
-        if (
-          !(fieldColor
-            ? invalidColors.includes(fieldColor)
-            : hasTruthyValueAfterIndex(bottle, fieldIndex))
-        )
-          return
-
-        if (!fieldColor) hasInvalidEmptyField = true
-
-        addToInvalidFields(state.invalidFields, bottleIndex, fieldIndex)
-      }, bottles)
-
-      if (invalidColors.length)
-        state.validationReport += 'Color must appear in four fields. '
-
-      if (hasInvalidEmptyField)
-        state.validationReport += 'Empty fields must be on top of a bottle. '
-
-      if (!hasEmptyField)
-        state.validationReport += 'You must leave at least one empty bottle.'
-
-      state.isValidLevel = !state.validationReport
-
-      return state
+      return {
+        isValidLevel: !validationReport,
+        invalidColors,
+        validationReport,
+      }
     },
 
     clearValidationState() {
