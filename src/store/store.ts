@@ -1,12 +1,14 @@
 import { configureStore } from '@reduxjs/toolkit'
-import bottlesValidationReducer from './bottlesValidationSlice'
+import LevelValidationReducer from './levelValidationSlice'
 import levelBuilderReducer from './levelBuilderSlice'
 import solutionReducer from './solutionSlice'
+import levelReducer from './levelSlice'
 
 export const store = configureStore({
   reducer: {
     levelBuilder: levelBuilderReducer,
-    bottlesValidation: bottlesValidationReducer,
+    levelValidation: LevelValidationReducer,
+    level: levelReducer,
     solution: solutionReducer,
   },
 })

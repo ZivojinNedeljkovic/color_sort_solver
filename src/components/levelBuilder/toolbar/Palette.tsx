@@ -1,7 +1,8 @@
 import PaletteColor from './PaletteColor'
 import { Grid } from '@mui/material'
+import palette from '../../../models/colors'
 
-const colors = [
+const colors_old = [
   '#EE3231', // red
   '#67C1FF', // blue
   '#FB98F3', // pink
@@ -16,16 +17,12 @@ const colors = [
   '#FEAFA2', // Cornflower Lilac
 ]
 
-
 function Palette() {
-
   return (
     <Grid container justifyContent="flex-start" spacing={1}>
-      {colors.map((color, i) => (
+      {palette.colors.map((color, i) => (
         <Grid item key={i}>
-          <PaletteColor
-            color={color}
-          />
+          <PaletteColor color={color} />
         </Grid>
       ))}
     </Grid>

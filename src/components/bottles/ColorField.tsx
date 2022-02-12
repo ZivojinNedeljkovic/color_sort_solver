@@ -8,12 +8,11 @@ type ColorFieldProps = {
 }
 
 function ColorField({ id, color, onClick, invalid }: ColorFieldProps) {
-  let classes = `${styles.color_field} ${onClick ? styles.editable : ''} `
-
-  if (id === 3) classes += `${styles.top_field} `
-  else if (id === 0) classes += `${styles.bottom_field} `
-
-  if (invalid) classes += `${styles.invalid} `
+  const classes = `${styles.color_field} 
+  ${onClick && styles.editable} 
+  ${invalid && styles.invalid}  
+  ${id === 3 && styles.top_field} 
+  ${id === 0 && styles.bottom_field}`
 
   return (
     <div

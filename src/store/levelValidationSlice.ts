@@ -6,24 +6,23 @@ import {
   forEachFieldInBottles,
   getInvalidColors,
   hasTruthyValueAfterIndex,
-} from './helpers/bottlesValidationHelpers'
+} from './helpers/levelValidationHelpers'
 
 export type InvalidFields = { [bottleId: number]: number[] }
 
 type BottlesValidationState = {
-  bottlesAreValid: boolean
+  isValidLevel?: boolean
   validationReport: string
   invalidFields: InvalidFields
 }
 
 const getInitialState = (): BottlesValidationState => ({
-  bottlesAreValid: false,
   validationReport: '',
   invalidFields: {},
 })
 
-const bottlesValidationSlice = createSlice({
-  name: 'bottlesValidation',
+const levelValidationSlice = createSlice({
+  name: 'levelValidation',
   initialState: getInitialState(),
   reducers: {
     validateBottles(_, { payload: bottles }: PayloadAction<Bottle[]>) {
@@ -55,18 +54,23 @@ const bottlesValidationSlice = createSlice({
         state.validationReport += 'Color must appear in four fields. '
 
       if (hasInvalidEmptyField)
-        state.validationReport += 'Empty fields must be on top. '
+        state.validationReport += 'Empty fields must be on top of a bottle. '
 
       if (!hasEmptyField)
         state.validationReport += 'You must leave at least one empty bottle.'
 
-      state.bottlesAreValid = !state.validationReport
+      state.isValidLevel = !state.validationReport
 
       return state
+    },
+
+    clearValidationState() {
+      return getInitialState()
     },
   },
 })
 
-export const { validateBottles } = bottlesValidationSlice.actions
+export const { validateBottles, clearValidationState } =
+  levelValidationSlice.actions
 
-export default bottlesValidationSlice.reducer
+export default levelValidationSlice.reducer

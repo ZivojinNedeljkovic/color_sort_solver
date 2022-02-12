@@ -1,20 +1,21 @@
-import { useEffect, useState } from 'react'
+import { useEffect } from 'react'
 import SolutionSearch from '../models/solutionSearch'
-import solutionSearch from '../models/solutionSearch'
-import { Step } from '../models/step'
 import { commitSolution } from '../store/solutionSlice'
-
 import useAppDispatch from './useAppDispatch'
 import useAppSelector from './useAppSelector'
 
 function useSolutionSearch() {
-  const { bottles } = useAppSelector(store => store.levelBuilder)
-  const { canAcceptBetterSolution } = useAppSelector(store => store.solution)
+  const {
+    level: { level },
+    solution: { canAcceptBetterSolution },
+  } = useAppSelector(store => store)
 
   const dispatch = useAppDispatch()
 
+  const bottles = level?.bottles
+
   useEffect(() => {
-    if (!canAcceptBetterSolution) return
+    if (!canAcceptBetterSolution || !bottles) return
 
     const solutionSearch = new SolutionSearch()
 

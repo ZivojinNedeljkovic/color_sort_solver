@@ -16,7 +16,7 @@ function Bottles({
   invalidFields,
 }: BottlesProps) {
   return (
-    <Grid container justifyContent={'center'} spacing={2}>
+    <Grid container justifyContent="center" columnSpacing={2} rowSpacing={4}>
       {bottles.map((colors, i) => (
         <Grid item xs={12 / maxBottlesPerRow} key={i}>
           <BottleComponent

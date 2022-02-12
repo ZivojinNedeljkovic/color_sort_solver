@@ -2,9 +2,9 @@ import useAppSelector from '../../hooks/useAppSelector'
 import Alert from '@mui/material/Alert'
 import Snackbar from '@mui/material/Snackbar'
 
-function LevelBuilderSnackbar() {
+function LBSnackbar() {
   const { setFiledError } = useAppSelector(store => store.levelBuilder)
-  const { validationReport } = useAppSelector(store => store.bottlesValidation)
+  const { validationReport } = useAppSelector(store => store.levelValidation)
 
   let content
 
@@ -31,4 +31,4 @@ function LevelBuilderSnackbar() {
     </Snackbar>
   )
 }
-export default LevelBuilderSnackbar
+export default LBSnackbar

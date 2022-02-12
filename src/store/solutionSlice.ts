@@ -10,32 +10,38 @@ let farthestReachedStepIndex = 0
 export type SolutionState = {
   step: Step
   hasASolutionBeenFound: boolean
+  hasNoSolution: boolean
   isThereNextStep: boolean
   isTherePreviousStep: boolean
   canAcceptBetterSolution: boolean
 }
 
-const initialState: SolutionState = {
+const getInitialState = (): SolutionState => ({
   step: [],
   hasASolutionBeenFound: false,
   isThereNextStep: false,
   isTherePreviousStep: false,
   canAcceptBetterSolution: true,
-}
+  hasNoSolution: false,
+})
 
 function setSolution(newSolution: Step[]): SolutionState | undefined {
-  if (newSolution.length === 0) return
+  if (newSolution.length === 0)
+    return {
+      ...getInitialState(),
+      canAcceptBetterSolution: false,
+      hasNoSolution: true,
+    }
 
   solution = newSolution
   currentStepIndex = 0
   farthestReachedStepIndex = 0
 
   return {
+    ...getInitialState(),
     hasASolutionBeenFound: true,
     step: solution[0],
-    isTherePreviousStep: false,
     isThereNextStep: solution.length > 1,
-    canAcceptBetterSolution: true,
   }
 }
 
@@ -62,7 +68,7 @@ function migrateToBetterSolution(
 
 const solutionSlice = createSlice({
   name: 'solution',
-  initialState,
+  initialState: getInitialState(),
   reducers: {
     commitSolution: (state, { payload: newSolution }: PayloadAction<Step[]>) =>
       state.hasASolutionBeenFound
@@ -87,10 +93,22 @@ const solutionSlice = createSlice({
       state.isTherePreviousStep = currentStepIndex > 0
       state.isThereNextStep = true
     },
+
+    clearSolutionState() {
+      solution = []
+      currentStepIndex = 0
+      farthestReachedStepIndex = 0
+
+      return getInitialState()
+    },
   },
 })
 
-export const { goToNextStep, goToPreviousStep, commitSolution } =
-  solutionSlice.actions
+export const {
+  goToNextStep,
+  goToPreviousStep,
+  commitSolution,
+  clearSolutionState,
+} = solutionSlice.actions
 
 export default solutionSlice.reducer

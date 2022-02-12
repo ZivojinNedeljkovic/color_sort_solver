@@ -8,6 +8,8 @@ function Header() {
         <Typography variant="h6" component="h1">
           Color Sort Solver
         </Typography>
+
+        
       </Toolbar>
     </AppBar>
   )

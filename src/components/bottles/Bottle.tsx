@@ -32,7 +32,7 @@ function Bottle({
     )
   }
 
-  return <Stack alignItems={'center'}>{colorFields}</Stack>
+  return <Stack alignItems="center">{colorFields}</Stack>
 }
 
 export default Bottle

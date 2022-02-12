@@ -25,7 +25,7 @@ class SolutionSearch {
   }
 
   startSearch(bottles: Bottle[], onFindSolution: (solution: Step[]) => void) {
-    this.worker = new Worker('worker.js')
+    this.worker = new Worker(window.location.origin + '/worker.js')
 
     this.worker?.postMessage(this.bottlesToMessage(bottles))
 
