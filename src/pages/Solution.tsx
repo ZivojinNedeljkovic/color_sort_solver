@@ -5,6 +5,10 @@ import SolutionDisplay from '../components/solutionDisplay/SolutionDisplay'
 import useAppDispatch from '../hooks/useAppDispatch'
 import useAppSelector from '../hooks/useAppSelector'
 import { getLevelFromId } from '../models/level'
+import {
+  setBottles,
+  setMaxNumberOfBottlesPerRow,
+} from '../store/levelBuilderSlice'
 import { setLevel } from '../store/levelSlice'
 
 function Solution() {
@@ -28,6 +32,8 @@ function Solution() {
     )
 
   dispatch(setLevel(urlLevel))
+  dispatch(setBottles(urlLevel.bottles))
+  dispatch(setMaxNumberOfBottlesPerRow(urlLevel.maxBottlesPerRow))
 
   return hasASolutionBeenFound ? <SolutionDisplay /> : <LoadingScreen />
 }

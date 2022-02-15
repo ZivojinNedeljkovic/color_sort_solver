@@ -15,12 +15,6 @@ type LevelBuilderState = {
 }
 
 const getInitialState = (): LevelBuilderState => ({
-  // bottles: [
-  //   ['#e53935', '#cddc39', '#03a9f4', '#e53935'],
-  //   ['#03a9f4', '#e53935', '#cddc39', '#cddc39'],
-  //   ['#03a9f4', '#cddc39', '#e53935', '#03a9f4'],
-  //   [undefined, undefined, undefined, undefined],
-  // ],
   bottles: getEmptyBottles(8),
   maxNumOfBottlesPerRow: 4,
   setMaxNumOfBottlesPerRowError: '',
@@ -103,6 +97,10 @@ const levelBuilderSlice = createSlice({
         selectedColor === filedColor ? undefined : selectedColor
     },
 
+    setBottles(state, { payload: bottles }: PayloadAction<Bottle[]>) {
+      state.bottles = bottles
+    },
+
     clearSetFiledError(state) {
       state.setFiledError = ''
     },
@@ -118,6 +116,7 @@ export const {
   setMaxNumberOfBottlesPerRow,
   setSelectedColor,
   setFiled,
+  setBottles,
   clearSetFiledError,
   clearLevelBuilderState,
 } = levelBuilderSlice.actions
