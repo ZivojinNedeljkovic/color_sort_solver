@@ -1,6 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
-import { Bottle } from '../models/bottle'
-import { getLevelFromId, getLevelId, Level } from '../models/level'
+import { getLevelId, Level } from '../models/level'
 
 export type levelState = {
   level?: Level
