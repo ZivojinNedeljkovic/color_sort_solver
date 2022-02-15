@@ -1,5 +1,4 @@
 import { Grid } from '@mui/material'
-import LBSnackbar from './LBSnackbar'
 import Toolbar from './toolbar/Toolbar'
 import LevelBuilderBottles from './LevelBuilderBottles'
 import LBButtonMenu from './lbButtonMenu/LBButtonMenu'
@@ -17,7 +16,6 @@ function LevelBuilder() {
       <Grid item>
         <LBButtonMenu />
       </Grid>
-      <LBSnackbar />
     </Grid>
   )
 }

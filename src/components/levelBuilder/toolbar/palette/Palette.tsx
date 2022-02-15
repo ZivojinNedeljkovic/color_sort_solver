@@ -1,6 +1,6 @@
 import PaletteColor from './PaletteColor'
 import { Grid } from '@mui/material'
-import palette from '../../../models/palette'
+import palette from '../../../../models/palette'
 
 const colors_old = [
   '#EE3231', // red

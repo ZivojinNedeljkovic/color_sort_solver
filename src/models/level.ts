@@ -1,4 +1,5 @@
 import { Bottle, getBottleId, getBottleFromId } from './bottle'
+import { areFieldsValid } from './fields'
 
 export type Level = { bottles: Bottle[]; maxBottlesPerRow: number }
 
@@ -9,7 +10,12 @@ export const getLevelFromId = (levelString: string) => {
   const maxBottlesPerRow = +levelString[0]
   const bottleIds = levelString.substring(1)
 
-  if (!maxBottlesPerRow || bottleIds.length % 4 !== 0) return
+  if (
+    maxBottlesPerRow > 10 ||
+    maxBottlesPerRow <= 0 ||
+    bottleIds.length % 4 !== 0
+  )
+    return
 
   const bottles: Bottle[] = []
 
@@ -17,5 +23,7 @@ export const getLevelFromId = (levelString: string) => {
     bottles.push(getBottleFromId(bottleIds.substring(i, i + 4))!)
   }
 
+  if (!areFieldsValid(bottles.flat())) return
+  
   return { bottles, maxBottlesPerRow } as Level
 }

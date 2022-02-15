@@ -1,7 +1,7 @@
 
-import useAppDispatch from '../../../hooks/useAppDispatch'
-import useAppSelector from '../../../hooks/useAppSelector'
-import { setSelectedColor } from '../../../store/levelBuilderSlice'
+import useAppDispatch from '../../../../hooks/useAppDispatch'
+import useAppSelector from '../../../../hooks/useAppSelector'
+import { setSelectedColor } from '../../../../store/levelBuilderSlice'
 import styles from './PaletteColor.module.css'
 
 type PaletteColorProps = {

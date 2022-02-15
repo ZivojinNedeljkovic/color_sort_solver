@@ -29,3 +29,4 @@ export const getBottleFromId = (bottleId: string) => {
     .split('')
     .map(colorId => colors.getColorFromId(colorId) ?? undefined)
 }
+

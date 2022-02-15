@@ -1,44 +1,18 @@
-import useAppSelector from '../../../hooks/useAppSelector'
-import useAppDispatch from '../../../hooks/useAppDispatch'
-import {
-  setMaxNumberOfBottlesPerRow,
-  setNumberOfBottles,
-} from '../../../store/levelBuilderSlice'
-import { Grid, TextField } from '@mui/material'
-import Palette from './Palette'
+import { Grid } from '@mui/material'
+import Palette from './palette/Palette'
+import MaxBottlesPerRowField from './MaxBottlesPerRowField'
+import NumOfBottlesField from './NumOfBottlesField'
 
 function Toolbar() {
-  const { setNumberOfBottlesError, setMaxNumberOfBottlesPerRowError } =
-    useAppSelector(state => state.levelBuilder)
-  const dispatch = useAppDispatch()
-
   return (
-    <Grid container rowSpacing={2} columnSpacing={2} justifyContent={'center'}>
+    <Grid container rowSpacing={2.5} columnSpacing={2} justifyContent={'center'}>
       <Grid item>
-        <TextField
-          label="Number of bottles"
-          type={'number'}
-          defaultValue={10}
-          variant={'standard'}
-          size="small"
-          error={!!setNumberOfBottlesError}
-          helperText={setNumberOfBottlesError}
-          onChange={e => dispatch(setNumberOfBottles(+e.target.value))}
-        />
+        <NumOfBottlesField />
       </Grid>
       <Grid item>
-        <TextField
-          label="Max bottles per row"
-          type={'number'}
-          defaultValue={5}
-          variant={'standard'}
-          size="small"
-          error={!!setMaxNumberOfBottlesPerRowError}
-          helperText={setMaxNumberOfBottlesPerRowError}
-          onChange={e => dispatch(setMaxNumberOfBottlesPerRow(+e.target.value))}
-        />
+        <MaxBottlesPerRowField />
       </Grid>
-      <Grid item>
+      <Grid item ml={1}>
         <Palette />
       </Grid>
     </Grid>

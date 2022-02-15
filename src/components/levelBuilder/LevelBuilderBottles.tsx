@@ -8,7 +8,7 @@ import Bottles from '../bottles/Bottles'
 
 function LevelBuilderBottles() {
   const {
-    levelBuilder: { bottles, maxNumberOfBottlesPerRow },
+    levelBuilder: { bottles, maxNumOfBottlesPerRow: maxNumberOfBottlesPerRow },
     levelValidation: { invalidColors },
   } = useAppSelector(store => store)
 

@@ -1,15 +1,30 @@
-import { AppBar, Toolbar, Typography } from '@mui/material'
+import { AppBar, Grid, Toolbar, Typography } from '@mui/material'
+import { useLocation, useNavigate } from 'react-router-dom'
 import styles from './Header.module.scss'
+import NavigationLink from './NavigationLink'
 
 function Header() {
+  const location = useLocation()
+  let navigate = useNavigate()
   return (
     <AppBar position="static" className={styles.header}>
       <Toolbar className={styles.header_content}>
-        <Typography variant="h6" component="h1">
-          Color Sort Solver
-        </Typography>
-
-        
+        <Grid container justifyContent={'space-between'} alignItems={'center'}>
+          <Grid item>
+            <Typography
+              variant="h6"
+              component="h1"
+              onClick={() => navigate('/')}
+            >
+              Color sort solver
+            </Typography>
+          </Grid>
+          {location.pathname !== '/' && (
+            <Grid item>
+              <NavigationLink name={'home'} to={''} />
+            </Grid>
+          )}
+        </Grid>
       </Toolbar>
     </AppBar>
   )

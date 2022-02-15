@@ -5,19 +5,23 @@ import useAppDispatch from '../../../hooks/useAppDispatch'
 import { validateBottles } from '../../../store/levelValidationSlice'
 import { useEffect, useState } from 'react'
 import { setLevel } from '../../../store/levelSlice'
+import { clearSetFiledError } from '../../../store/levelBuilderSlice'
 
 function FindSolutionBtn() {
   const [searchingForSolution, setSearchingForSolution] = useState(false)
 
   const {
-    levelBuilder: { bottles, maxNumberOfBottlesPerRow: maxBottlesPerRow },
+    levelBuilder: { bottles, maxNumOfBottlesPerRow: maxBottlesPerRow },
     levelValidation: { isValidLevel },
     solution: { hasASolutionBeenFound, hasNoSolution },
   } = useAppSelector(store => store)
 
   const dispatch = useAppDispatch()
 
-  const onFindSolutionHandler = () => dispatch(validateBottles(bottles))
+  const onFindSolutionHandler = () => {
+    dispatch(clearSetFiledError())
+    dispatch(validateBottles(bottles))
+  }
 
   useEffect(() => {
     if (!isValidLevel) return setSearchingForSolution(false)

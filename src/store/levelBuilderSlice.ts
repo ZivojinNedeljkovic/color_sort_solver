@@ -8,95 +8,75 @@ import {
 type LevelBuilderState = {
   bottles: Bottle[]
   selectedColor?: string
-  maxNumberOfBottlesPerRow: number
-  setMaxNumberOfBottlesPerRowError: string
-  setNumberOfBottlesError: string
+  maxNumOfBottlesPerRow: number
+  setMaxNumOfBottlesPerRowError: string
+  setNumOfBottlesError: string
   setFiledError: string
 }
 
-const initialState: LevelBuilderState = {
+const getInitialState = (): LevelBuilderState => ({
   // bottles: [
-  //   ['#EE3231', '#67C1FF', '#FB98F3', '#F25298'],
-  //   ['#FAD749', '#AE1AB0', '#9AD85D', '#4DD5AD'],
-  //   ['#EE3231', '#9AD85D', '#9AD85D', '#FB6A79'],
-  //   ['#FAD749', '#FAD749', '#67C1FF', '#4DD5AD'],
-  //   ['#F25298', '#6B67D8', '#FEAFA2', '#F7A036'],
-  //   ['#FAD749', '#FB98F3', '#6B67D8', '#FB98F3'],
-  //   ['#67C1FF', '#AE1AB0', '#4DD5AD', '#F7A036'],
-  //   ['#FEAFA2', '#F25298', '#67C1FF', '#EE3231'],
-  //   ['#9AD85D', '#F7A036', '#6B67D8', '#FEAFA2'],
-  //   ['#4DD5AD', '#6B67D8', '#F7A036', '#FB98F3'],
-  //   ['#AE1AB0', '#FB6A79', '#FEAFA2', '#FB6A79'],
-  //   ['#F25298', '#FB6A79', '#AE1AB0', '#EE3231'],
-  //   [undefined],
-  //   [],
+  //   ['#e53935', '#cddc39', '#03a9f4', '#e53935'],
+  //   ['#03a9f4', '#e53935', '#cddc39', '#cddc39'],
+  //   ['#03a9f4', '#cddc39', '#e53935', '#03a9f4'],
+  //   [undefined, undefined, undefined, undefined],
   // ],
-  bottles: [
-    ['#e53935', '#cddc39', '#03a9f4', '#e53935'],
-    ['#03a9f4', '#e53935', '#cddc39', '#cddc39'],
-    ['#03a9f4', '#cddc39', '#e53935', '#03a9f4'],
-    [undefined, undefined, undefined, undefined],
-  ],
-  // bottles: getEmptyBottles(10),
-  maxNumberOfBottlesPerRow: 5,
-  setMaxNumberOfBottlesPerRowError: '',
-  setNumberOfBottlesError: '',
+  bottles: getEmptyBottles(8),
+  maxNumOfBottlesPerRow: 4,
+  setMaxNumOfBottlesPerRowError: '',
+  setNumOfBottlesError: '',
   setFiledError: '',
-}
+})
 
 const levelBuilderSlice = createSlice({
   name: 'levelBuilder',
-  initialState,
+  initialState: getInitialState,
   reducers: {
     setNumberOfBottles(
       state,
-      { payload: newNumOfBottles }: PayloadAction<number>
+      { payload: numOfBottles }: PayloadAction<number>
     ) {
-      if (!isPositiveInteger(newNumOfBottles)) {
-        state.setNumberOfBottlesError = 'Must be a positive integer.'
-        return
-      }
+      state.setNumOfBottlesError = isPositiveInteger(numOfBottles)
+        ? numOfBottles > 20
+          ? 'Must be less then 21.'
+          : ''
+        : 'Must be a positive integer.'
 
-      if (newNumOfBottles > 20) {
-        state.setNumberOfBottlesError = 'Must be less then 21.'
-        return
-      }
+      if (state.setNumOfBottlesError) return
 
-      state.setNumberOfBottlesError = ''
+      const { bottles } = state
 
-      while (newNumOfBottles > state.bottles.length)
-        state.bottles.push(getEmptyBottle())
+      while (numOfBottles > bottles.length) bottles.push(getEmptyBottle())
 
-      while (newNumOfBottles < state.bottles.length) state.bottles.pop()
+      while (numOfBottles < bottles.length) bottles.pop()
     },
 
     setMaxNumberOfBottlesPerRow(
       state,
-      { payload: newMaxNumOfBottlesPerRow }: PayloadAction<number>
+      { payload: maxNumOfBottlesPerRow }: PayloadAction<number>
     ) {
-      if (!isPositiveInteger(newMaxNumOfBottlesPerRow)) {
-        state.setMaxNumberOfBottlesPerRowError = 'Must be a positive integer.'
-        return
-      }
+      state.setMaxNumOfBottlesPerRowError = isPositiveInteger(
+        maxNumOfBottlesPerRow
+      )
+        ? maxNumOfBottlesPerRow > 10
+          ? 'Must be less then 11.'
+          : ''
+        : 'Must be a positive integer.'
 
-      if (newMaxNumOfBottlesPerRow > 10) {
-        state.setMaxNumberOfBottlesPerRowError = 'Must be less then 11.'
-        return
-      }
+      if (state.setMaxNumOfBottlesPerRowError) return
 
-      state.setMaxNumberOfBottlesPerRowError = ''
-
-      state.maxNumberOfBottlesPerRow = newMaxNumOfBottlesPerRow
+      state.maxNumOfBottlesPerRow = maxNumOfBottlesPerRow
     },
 
     setSelectedColor(
       state,
-      { payload: newColor }: PayloadAction<string | undefined>
+      { payload: color }: PayloadAction<string | undefined>
     ) {
-      state.selectedColor =
-        newColor === state.selectedColor ? undefined : newColor
-
-      state.setFiledError = ''
+      return {
+        ...state,
+        selectedColor: state.selectedColor === color ? undefined : color,
+        setFiledError: '',
+      }
     },
 
     setFiled(
@@ -105,30 +85,30 @@ const levelBuilderSlice = createSlice({
         payload: { bottleIndex, fieldIndex },
       }: PayloadAction<{ bottleIndex: number; fieldIndex: number }>
     ) {
-      if (!state.bottles[bottleIndex]) return
-
       const { selectedColor, bottles } = state
-      const filedColor = bottles[bottleIndex][fieldIndex]
+      const filedColor = bottles[bottleIndex]?.[fieldIndex]
 
-      if (
+      state.setFiledError =
         selectedColor !== undefined &&
-        getNumOfFieldsColoredWith(selectedColor, bottles) === 4 &&
-        filedColor !== selectedColor
-      ) {
-        state.setFiledError =
-          "You can't have more than 4 fields with the same color."
-        return
-      }
+        selectedColor !== filedColor &&
+        getNumOfFieldsColoredWith(selectedColor, bottles) === 4
+          ? "You can't have more than 4 fields with the same color."
+          : selectedColor === undefined && filedColor === undefined
+          ? 'You must select a color.'
+          : ''
 
-      if (selectedColor === undefined && filedColor === undefined) {
-        state.setFiledError = 'You must select a color.'
-        return
-      }
-
-      state.setFiledError = ''
+      if (state.setFiledError) return
 
       state.bottles[bottleIndex][fieldIndex] =
         selectedColor === filedColor ? undefined : selectedColor
+    },
+
+    clearSetFiledError(state) {
+      state.setFiledError = ''
+    },
+
+    clearLevelBuilderState() {
+      return getInitialState()
     },
   },
 })
@@ -138,6 +118,8 @@ export const {
   setMaxNumberOfBottlesPerRow,
   setSelectedColor,
   setFiled,
+  clearSetFiledError,
+  clearLevelBuilderState,
 } = levelBuilderSlice.actions
 
 export default levelBuilderSlice.reducer

@@ -26,8 +26,10 @@ $border-width: 2px;
   border-top: $border-width / 2 solid #1c6ea4;
 }
 
-.editable:hover {
-  border: $border-width * 1.8 solid rgb(255, 230, 0);
+@media only screen and (min-width: 1200px) {
+  .editable:hover {
+    border: $border-width * 1.8 solid rgb(255, 230, 0);
+  }
 }
 
 .invalid {
