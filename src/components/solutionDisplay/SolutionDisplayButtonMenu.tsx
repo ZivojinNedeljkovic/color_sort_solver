@@ -13,7 +13,7 @@ function SolutionDisplayButtonMenu() {
 
   return (
     <Grid container justifyContent="center">
-      <Grid item>
+      <Grid item mt={2}>
         <Button
           variant="contained"
           disabled={!isTherePreviousStep}
@@ -23,7 +23,7 @@ function SolutionDisplayButtonMenu() {
           previous step
         </Button>
       </Grid>
-      <Grid item ml={5} mr={3.5}>
+      <Grid item ml={5} mr={3.5} mt={2}>
         <Button
           variant="contained"
           disabled={!isThereNextStep}

@@ -1,7 +1,7 @@
 import useAppSelector from '../../../hooks/useAppSelector'
 import useAppDispatch from '../../../hooks/useAppDispatch'
 import { setMaxNumberOfBottlesPerRow } from '../../../store/levelBuilderSlice'
-import { TextField } from '@mui/material'
+import SmartTextField from '../../layout/SmartTextField'
 
 function MaxBottlesPerRowField() {
   const { maxNumOfBottlesPerRow, setMaxNumOfBottlesPerRowError } =
@@ -9,7 +9,7 @@ function MaxBottlesPerRowField() {
   const dispatch = useAppDispatch()
 
   return (
-    <TextField
+    <SmartTextField
       label="Max bottles per row"
       type={'number'}
       value={maxNumOfBottlesPerRow}
