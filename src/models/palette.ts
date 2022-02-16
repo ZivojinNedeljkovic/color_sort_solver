@@ -33,11 +33,11 @@ class Palette {
     },
     {
       colorId: 'g',
-      hexColor: muiColors.lightBlue[500],
+      hexColor: muiColors.lightBlue[400],
     },
     {
       colorId: 'h',
-      hexColor: muiColors.cyan[500],
+      hexColor: muiColors.cyan[300],
     },
     {
       colorId: 'i',
