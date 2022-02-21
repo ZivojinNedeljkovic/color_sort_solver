@@ -40,6 +40,10 @@ class Palette {
       hexColor: muiColors.cyan[300],
     },
     {
+      colorId: 'u',
+      hexColor: muiColors.teal.A400,
+    },
+    {
       colorId: 'i',
       hexColor: muiColors.teal[500],
     },
