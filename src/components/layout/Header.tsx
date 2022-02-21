@@ -14,6 +14,7 @@ function Header() {
             <Typography
               variant="h6"
               component="h1"
+              sx={{ cursor: 'pointer' }}
               onClick={() => navigate('/')}
             >
               Color sort solver

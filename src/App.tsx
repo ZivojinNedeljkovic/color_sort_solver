@@ -12,6 +12,7 @@ function App() {
       <Route path="/" element={<Layout />}>
         <Route index element={<Home />} />
         <Route path="solution/:levelId" element={<Solution />} />
+        <Route path="*" element={<h1>Invalid route</h1>} />
       </Route>
     </Routes>
   )

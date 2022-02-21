@@ -8,12 +8,11 @@ import { setLevel } from '../../../store/levelSlice'
 import { clearSetFiledError } from '../../../store/levelBuilderSlice'
 
 function FindSolutionBtn() {
-  const [searchingForSolution, setSearchingForSolution] = useState(false)
+  const [disabledBtn, setDisabledBtn] = useState(false)
 
   const {
     levelBuilder: { bottles, maxNumOfBottlesPerRow: maxBottlesPerRow },
     levelValidation: { isValidLevel },
-    solution: { hasASolutionBeenFound, hasNoSolution },
   } = useAppSelector(store => store)
 
   const dispatch = useAppDispatch()
@@ -21,25 +20,23 @@ function FindSolutionBtn() {
   const onFindSolutionHandler = () => {
     dispatch(clearSetFiledError())
     dispatch(validateBottles(bottles))
+    setDisabledBtn(true)
   }
 
   useEffect(() => {
-    if (!isValidLevel) return setSearchingForSolution(false)
-
-    dispatch(setLevel({ bottles, maxBottlesPerRow }))
-    setSearchingForSolution(true)
+    if (isValidLevel) dispatch(setLevel({ bottles, maxBottlesPerRow }))
   }, [bottles, dispatch, isValidLevel, maxBottlesPerRow])
 
   useEffect(() => {
-    if (hasASolutionBeenFound || hasNoSolution) setSearchingForSolution(false)
-  }, [hasASolutionBeenFound, hasNoSolution])
+    setDisabledBtn(false)
+  }, [bottles])
 
   return (
     <Button
       variant="contained"
       endIcon={<SearchIcon />}
       onClick={onFindSolutionHandler}
-      disabled={hasNoSolution || searchingForSolution}
+      disabled={disabledBtn}
     >
       find solution
     </Button>

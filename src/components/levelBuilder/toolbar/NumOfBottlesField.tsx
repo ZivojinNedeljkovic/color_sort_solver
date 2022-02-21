@@ -1,19 +1,21 @@
 import useAppSelector from '../../../hooks/useAppSelector'
 import useAppDispatch from '../../../hooks/useAppDispatch'
 import { setNumberOfBottles } from '../../../store/levelBuilderSlice'
-import SmartTextField from '../../layout/SmartTextField'
+
+import { TextField } from '@mui/material'
 
 function NumOfBottlesField() {
   const { bottles, setNumOfBottlesError } = useAppSelector(
     state => state.levelBuilder
   )
+
   const dispatch = useAppDispatch()
 
   return (
-    <SmartTextField
+    <TextField
       label="Number of bottles"
       type={'number'}
-      value={bottles.length}
+      defaultValue={bottles.length}
       variant={'standard'}
       size="small"
       error={!!setNumOfBottlesError}

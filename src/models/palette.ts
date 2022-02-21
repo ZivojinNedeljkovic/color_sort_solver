@@ -73,16 +73,21 @@ class Palette {
     },
     {
       colorId: 'q',
-      hexColor: muiColors.brown[500],
+      hexColor: muiColors.deepOrange[100],
     },
     {
       colorId: 'r',
-      hexColor: muiColors.grey[500],
+      hexColor: muiColors.brown[500],
     },
     {
       colorId: 's',
+      hexColor: muiColors.grey[500],
+    },
+    {
+      colorId: 't',
       hexColor: muiColors.blueGrey[500],
     },
+
     // abcdefghijklmnopqrstuvwxyz
   ]
 

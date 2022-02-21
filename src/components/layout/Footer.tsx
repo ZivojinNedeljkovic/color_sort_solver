@@ -1,11 +1,10 @@
-import { useTheme } from '@mui/material'
 import styles from './Footer.module.scss'
 
 function Footer() {
   return (
-    <footer
-      className={styles.footer}
-    ></footer>
+    <footer className={styles.footer}>
+      {/* <p>made with love by zn</p> */}
+    </footer>
   )
 }
 

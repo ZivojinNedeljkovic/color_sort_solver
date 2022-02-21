@@ -4,39 +4,43 @@ import Snackbar from '@mui/material/Snackbar'
 import useFrozenState from '../../hooks/useFrozenState'
 import { useEffect } from 'react'
 
+type AlertState =
+  | {
+      content: string
+      severity: AlertColor
+    }
+  | undefined
+
 function LevelBuilderSnackbar() {
   const {
     levelBuilder: { setFiledError },
     levelValidation: { validationReport },
+    solution: { hasNoSolution },
   } = useAppSelector(store => store)
 
   const exitAnimationDuration = 500
 
-  const [content, setContent] = useFrozenState('', exitAnimationDuration)
-  const [alertSeverity, setAlertSeverity] = useFrozenState<
-    AlertColor | undefined
-  >(undefined, exitAnimationDuration)
+  const [alertState, setAlertState] = useFrozenState<AlertState>(
+    undefined,
+    exitAnimationDuration
+  )
 
   useEffect(() => {
-    if (validationReport) {
-      setContent(validationReport)
-      setAlertSeverity('error')
-    } else if (setFiledError) {
-      setContent(setFiledError)
-      setAlertSeverity('info')
-    } else {
-      setContent('')
-      setAlertSeverity(undefined)
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [setFiledError, validationReport])
+    if (validationReport)
+      setAlertState({ content: validationReport, severity: 'error' })
+    else if (setFiledError)
+      setAlertState({ content: setFiledError, severity: 'info' })
+    else if (hasNoSolution)
+      setAlertState({ content: 'There is no solution.', severity: 'error' })
+    else setAlertState(undefined)
+  }, [hasNoSolution, setAlertState, setFiledError, validationReport])
 
-  const openSnackBar = !!(validationReport || setFiledError)
+  const openSB = !!(validationReport || setFiledError || hasNoSolution)
 
   return (
-    <Snackbar open={openSnackBar}>
-      <Alert severity={alertSeverity} variant="filled">
-        {content}
+    <Snackbar open={openSB}>
+      <Alert severity={alertState?.severity} variant="filled">
+        {alertState?.content}
       </Alert>
     </Snackbar>
   )
