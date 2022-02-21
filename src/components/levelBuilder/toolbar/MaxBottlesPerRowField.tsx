@@ -17,7 +17,9 @@ function MaxBottlesPerRowField() {
       size="small"
       error={!!setMaxNumOfBottlesPerRowError}
       helperText={setMaxNumOfBottlesPerRowError}
-      onChange={e => dispatch(setMaxNumberOfBottlesPerRow(+e.target.value))}
+      onChange={e => {
+        dispatch(setMaxNumberOfBottlesPerRow(+e.target.value))
+      }}
     />
   )
 }
