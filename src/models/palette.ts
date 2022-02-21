@@ -40,55 +40,55 @@ class Palette {
       hexColor: muiColors.cyan[300],
     },
     {
-      colorId: 'u',
+      colorId: 'i',
       hexColor: muiColors.teal.A400,
     },
     {
-      colorId: 'i',
+      colorId: 'j',
       hexColor: muiColors.teal[500],
     },
     {
-      colorId: 'j',
+      colorId: 'k',
       hexColor: muiColors.green[500],
     },
     {
-      colorId: 'k',
+      colorId: 'l',
       hexColor: muiColors.lightGreen[500],
     },
     {
-      colorId: 'l',
+      colorId: 'm',
       hexColor: muiColors.lime[500],
     },
     {
-      colorId: 'm',
+      colorId: 'n',
       hexColor: muiColors.yellow[500],
     },
     {
-      colorId: 'n',
+      colorId: 'o',
       hexColor: muiColors.amber[500],
     },
     {
-      colorId: 'o',
+      colorId: 'p',
       hexColor: muiColors.orange[500],
     },
     {
-      colorId: 'p',
+      colorId: 'q',
       hexColor: muiColors.deepOrange[300],
     },
     {
-      colorId: 'q',
+      colorId: 'r',
       hexColor: muiColors.deepOrange[100],
     },
     {
-      colorId: 'r',
+      colorId: 's',
       hexColor: muiColors.brown[500],
     },
     {
-      colorId: 's',
+      colorId: 't',
       hexColor: muiColors.grey[500],
     },
     {
-      colorId: 't',
+      colorId: 'u',
       hexColor: muiColors.blueGrey[500],
     },
 
